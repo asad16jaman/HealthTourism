@@ -160,6 +160,7 @@ class HomeController extends Controller
 
     public function storeApointment(Request $request)
     {
+        // nullable|image|mimes:pdf,doc,docx
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email'],
@@ -168,8 +169,8 @@ class HomeController extends Controller
             'country_id' => ['required', 'integer'],
             'service_id' => ['required', 'integer'],
             'message' => ['nullable', 'string'],
-            'files' => ['nullable', 'array'],
-            'files.*' => ['file', 'mimes:pdf,doc,docx', 'max:2048'],
+            'files' => ['nullable', 'array','max:4'],
+            'files.*' => ['file', 'mimes:jpeg,jpg,png,webp', 'max:2024'],
         ];
 
         if ($request->country_id != 9) {

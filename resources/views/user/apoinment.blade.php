@@ -1,10 +1,9 @@
 @extends('user.layout.app')
-@section('title', 'About Page')
+@section('title', 'Get Apointment Page')
 
 @push('style')
     <style>
         .badgg {
-          
             width: 26px;
             height: 26px;
             background: #ff0000;
@@ -14,9 +13,6 @@
             border-radius: 50%;
             font-weight: 900;
         }
-
-        
-
         .plustbtn {
             width: 20%;
             text-align: right;
@@ -25,7 +21,6 @@
             margin-top: 35px;
 
         }
-
         .plusicon {
             background: #004eff;
             color: #fff;
@@ -148,8 +143,8 @@
 
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label> Upload your reports (PDF or Doc file only): </label> <br>
-                                    <input name="files[]" type="file" multiple>
+                                    <label> Upload your reports,max:4 image (jpeg,jpg,png,webp image only): </label> <br>
+                                    <input name="files[]" type="file" accept="image/*" multiple>
                                     @error('files')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
@@ -352,6 +347,7 @@
                         handlePassportFunc()
                     }
                 } catch (error) {
+                    console.log(error)
                     alert('There is something Wrong');
 
                 }

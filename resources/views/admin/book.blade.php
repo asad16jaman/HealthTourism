@@ -1,9 +1,13 @@
 <!-- service-message -->
 @extends('admin.layout.app')
 
+
+
 @section('title', 'Booking Page')
 
 @section('style')
+
+<link rel="stylesheet" href="{{ asset('assets/admin/css/lightbox.css') }}" />
     <style>
         .table>tbody>tr>td {
             padding: 0px !important;
@@ -76,7 +80,7 @@
 
 @section('bodyContent')
     <div class="container">
-        <div class="page-inner">
+        <div class="page-inner" style="min-height:80vh">
 
             <div class="row">
                 <div class="col-md-12">
@@ -93,10 +97,10 @@
                                             <th style="width: 300.875px;">Name</th>
                                             <th style="width: 214.469px;">Email</th>
                                             <th style="width: 150.469px;">Phone</th>
-                                            <th style="width: 300.875px;">Companion</th>
+                                            <th style="width: 170.875px;">Companion</th>
                                             <th style="width: 150.469px;">Status</th>
                                             <th style="width: 70.469px;">Message</th>
-                                            <th style="width: 200.469px;">Date</th>
+                                            <th style="width: 330.469px;">Date</th>
                                             <th style="width: 81.375px;">Action</th>
                                         </tr>
                                     </thead>
@@ -189,8 +193,8 @@
                                                                     <div>
                                                                         <p>Country: {{ $data->country->country }}</p>
                                                                         <p>Service Name: {{ $data->service->name }}</p>
-                                                                        <p>Passport: {{ $data->passport }}</p>
-                                                                        <p>Expire Date: {{ $data->exp_date }}</p>
+                                                                        <p>Passport: {{ $data->passport ?? "Not Found" }}</p>
+                                                                        <p>Expire Date: {{ $data->exp_date ?? "Not Found" }}</p>
                                                                         <p>Address: {{ $data->address }}</p>
                                                                         <p class="d-none">Status: {{ $data->status }}</p>
                                                                     </div>
@@ -198,10 +202,27 @@
                                                                     <hr>
                                                                     {!! $data->message !!}
                                                                     <hr>
+                                                                        
+                                                                           
+                                                                            <div class="row">
+                                                                                @foreach ($data->files as $file)
+                                                                                <div class="col-3 position-relative" style="height:105px" >
+                                                                                    <a href="{{ route('admin.fileDownload',['id'=>$file->id]) }}" class="btn btn-primary btn-sm position-absolute">
+                                                                                        <i class="fas fa-download iconsize"></i>
+                                                                                    </a>
+                                                                                    <a href="{{ asset('storage').'/'.$file->document }}" data-lightbox="roadtrip{{ $data->id }}">
+                                                                                         <img style="width:100%;height:100%;object-fit:contain" src="{{ asset('storage').'/'.$file->document }}" alt="{{ $data->name }}">
+                                                                                    </a>
+                                                                                   
+                                                                                </div>
+                                                                                @endforeach 
+                                                                            </div>
+                                                                            
+                                                                        
+                                                                    <hr>
                                                                     @foreach ($data->files as $file)
-                                                                        <a href="{{ route('admin.fileDownload',['id'=>$file->id]) }}" class="btn btn-primary btn-sm">
-                                                                            <i class="fas fa-download iconsize"></i>
-                                                                        </a>
+                                                                    
+                                                                        
                                                                     @endforeach 
                                                                 </div>
 
@@ -240,6 +261,8 @@
         <!-- Datatables -->
         <script src="{{ asset('assets/admin/js/plugin/datatables/datatables.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        
+        <script src="{{ asset('assets/admin/js/lightbox.js') }}"></script>
         <script>
 
             $(document).on("click", ".deleteBtn", function (e) {

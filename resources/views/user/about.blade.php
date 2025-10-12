@@ -31,8 +31,8 @@
                         <h2>About Us</h2>
                     </div>
                     <div class="page_link">
-                        <a href="index.html">Home</a>
-                        <a href="contact.html">About Us</a>
+                        <a href="/">Home</a>
+                        <a href="#">About Us</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title', 'Admin Page')
+@section('title', 'Contact Message Page')
 
 @section('pageside')
     @include('admin.layout.sidebar', ['page' => 'contact'])
