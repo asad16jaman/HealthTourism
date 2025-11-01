@@ -15,7 +15,7 @@ class ApoinmentController extends Controller
 
     public function index()
     {
-        $datas = Booking::with(['bookfiles','relations'])->get();
+        $datas = Booking::with(['bookfiles','relations'])->latest()->get();
         return view('admin.book', compact('datas'));
     }
 

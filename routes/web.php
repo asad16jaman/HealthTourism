@@ -72,8 +72,6 @@ Route::group(['prefix'=> '/admin','middleware'=>'checkAdminAuth','as'=>'admin.']
     Route::get("/sliders/{id?}",[SliderController::class,"index"])->name("slider");
     Route::post("/sliders/{id?}",[SliderController::class,"store"])->name("slider");
     Route::post("/sliders/{id}/delete",[SliderController::class,"destroy"])->name("slider.delete");
-
-
    
     //Country url hare
     Route::get("/country",[CountryController::class,"index"])->name("country");

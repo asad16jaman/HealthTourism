@@ -178,8 +178,6 @@
               </li>
                
                
-              
-
               <li class="nav-item {{ ($page=='about') ? 'active' : '' }}">
                 <a href="{{ route('admin.about') }}">
                   <i class="fas fa-info-circle"></i>

@@ -11,9 +11,9 @@
                 </div>
                 <div class="float-right">
                     <ul class="list header_social">
-                        <li><a href="{{ optional($company)->facebook }}"><i class="ti-facebook headerFontHilighter"></i></a></li>
-                        <li><a href="{{ optional($company)->twiter }}"><i class="ti-twitter-alt headerFontHilighter"></i></a></li>
-                        <li><a href="{{ optional($company)->linkdin }}"><i class="ti-linkedin headerFontHilighter"></i></a></li>
+                        <li><a href="{{ optional($company)->facebook }}" target="_blank"><i class="ti-facebook headerFontHilighter"></i></a></li>
+                        <li><a href="{{ optional($company)->twiter }}"  target="_blank"><i class="ti-twitter-alt headerFontHilighter"></i></a></li>
+                        <li><a href="{{ optional($company)->linkdin }}"  target="_blank"><i class="ti-linkedin headerFontHilighter"></i></a></li>
                     </ul>
                 </div>
             </div>

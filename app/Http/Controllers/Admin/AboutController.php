@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
-    //
-
     public function index(){
         $about = About::first();
         return view("admin.about", compact(['about']));

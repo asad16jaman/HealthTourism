@@ -144,7 +144,7 @@
 
                                                                         </thead>
                                                                         <tbody>
-                                                                            @foreach ($data->relations as $relation)
+                                                                            @forelse ($data->relations as $relation)
                                                                                 <tr>
                                                                                     <td>{{ $loop->iteration }}</td>
                                                                                     <td>{{ $relation->name }}</td>
@@ -152,7 +152,14 @@
                                                                                     <td>{{ $relation->passport }}</td>
                                                                                     <td>{{ $relation->exp_date }}</td>
                                                                                 </tr>
-                                                                            @endforeach
+                                                                            @empty
+                                                                                <tr>
+                                                                                    <td colspan="5" class="text-center">
+                                                                                        <p class="mb-0">No Companion Person Found</p>
+                                                                                    </td>
+                                                                                    
+                                                                                </tr>
+                                                                            @endforelse
                                                                             
                                                                         </tbody>
                                                                     </table>
@@ -205,7 +212,7 @@
                                                                         
                                                                            
                                                                             <div class="row">
-                                                                                @foreach ($data->files as $file)
+                                                                                @forelse ($data->files as $file)
                                                                                 <div class="col-3 position-relative" style="height:105px" >
                                                                                     <a href="{{ route('admin.fileDownload',['id'=>$file->id]) }}" class="btn btn-primary btn-sm position-absolute">
                                                                                         <i class="fas fa-download iconsize"></i>
@@ -215,15 +222,13 @@
                                                                                     </a>
                                                                                    
                                                                                 </div>
-                                                                                @endforeach 
+                                                                                @empty
+                                                                                    <p class="text-center">No Document Found</p>
+                                                                                @endforelse
                                                                             </div>
                                                                             
                                                                         
                                                                     <hr>
-                                                                    @foreach ($data->files as $file)
-                                                                    
-                                                                        
-                                                                    @endforeach 
                                                                 </div>
 
                                                             </div>

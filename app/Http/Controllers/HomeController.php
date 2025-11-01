@@ -26,28 +26,21 @@ class HomeController extends Controller
     //
     public function index()
     {
-
         $sliders = Slider::all();
-
-        // $clients = Client::all();
         $wellcome = WelcomeNode::first();
         $all_service = Service::latest()->take(6)->get();
         $hospitals = Hospital::latest()->take(10)->get();
         $feedbacks = Feedback::latest()->get();
-
         return view('user.home', compact('all_service', 'sliders', 'wellcome', 'hospitals', 'feedbacks'));
     }
 
     public function contact()
     {
-
         return view('user.contact');
     }
 
     public function storeContact(Request $request)
     {
-
-
         $request->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
@@ -65,25 +58,20 @@ class HomeController extends Controller
 
     public function companyAbout()
     {
-
         $aboutdetail = About::first();
         return view('user.about', compact('aboutdetail'));
     }
-
     public function service()
     {
         $all_service = Service::latest()->get();
         return view('user.service', compact('all_service'));
     }
-
     public function servicesDetail($uid)
     {
-
         $s_detail = Service::where('uid', '=', $uid)->first();
         $faqs = Faq::latest()->get();
         return view('user.service_detail', compact('s_detail', 'faqs'));
     }
-
     public function servicesMessageStore(Request $request, string $uid)
     {
         $request->validate([
@@ -121,7 +109,6 @@ class HomeController extends Controller
 
     public function savePataintReport(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string',
             'address' => 'required|string|min:3',
@@ -130,9 +117,7 @@ class HomeController extends Controller
             'email' => 'required|email',
             'message' => 'nullable|string'
         ]);
-
         $data = $request->only(['name', 'address', 'city', 'email', 'message']);
-
         try {
             if ($request->hasFile('files')) {
                 $path = $request->file('files')->store('report');
@@ -143,16 +128,11 @@ class HomeController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', "There is a problem. Try Again.");
         }
-
-
-
-
     }
 
 
     public function apointment()
     {
-
         $allCountry = Country::where('id', '!=', 9)->get();
         $services = Service::all();
         return view('user.apoinment', compact('allCountry', 'services'));
@@ -182,16 +162,13 @@ class HomeController extends Controller
             $rules['companions.*.passport'] = ['required', 'string', 'max:50'];
             $rules['companions.*.exp_date'] = ['required', 'date'];
         }
-
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'data' => $validator->errors()
             ], 200);
         }
-
         $bookdata = [
             'name' => $request->name,
             'email' => $request->email,
@@ -203,12 +180,10 @@ class HomeController extends Controller
             'exp_date' => $request->exp_date,
             'message' => $request->message,
         ];
-
         try {
             DB::beginTransaction();
             // Booking save
             $booking = Booking::create($bookdata);
-
             // Bookfiles save
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
@@ -232,10 +207,8 @@ class HomeController extends Controller
                         ]);
                     }
                 }
-
             }
             DB::commit();
-           
             return response()->json([
                 'status' => true,
                 'message' => "Successfully Stored Appointment Data"
@@ -247,7 +220,6 @@ class HomeController extends Controller
                 'message' => "Something Went Wrong.."
             ]);
         }
-
     }
 
 

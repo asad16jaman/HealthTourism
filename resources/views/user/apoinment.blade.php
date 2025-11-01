@@ -9,7 +9,6 @@
             background: #ff0000;
             text-align: center;
             color: #fff;
-            
             border-radius: 50%;
             font-weight: 900;
         }
@@ -19,7 +18,6 @@
             display: flex;
             justify-content: end;
             margin-top: 35px;
-
         }
         .plusicon {
             background: #004eff;
@@ -31,7 +29,6 @@
             height: 29px;
             cursor: pointer;
         }
-
         .changeBtn{
             width: 20%;
             display: flex;
@@ -115,7 +112,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6 col-12 pesportSection d-none">
                                 <div class="form-group">
                                     <label for="">Passport No*</label>
@@ -124,7 +120,6 @@
                                         class="form-control @error('passport') is-invalid @enderror">
                                 </div>
                             </div>
-
                             <div class="col-md-6 col-12 pesportSection d-none">
                                 <div class="form-group">
                                     <label for="">Expire Date*</label>
@@ -132,7 +127,6 @@
                                         class="form-control @error('exp_date') is-invalid @enderror">
                                 </div>
                             </div>
-
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Address*</label>
@@ -140,7 +134,6 @@
                                         name="address" class="form-control @error('address') is-invalid @enderror">
                                 </div>
                             </div>
-
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label> Upload your reports,max:4 image (jpeg,jpg,png,webp image only): </label> <br>
@@ -196,14 +189,9 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-                            <!-- <div class="d-flex justify-content-end">
-                                        <button type="button" id="add-companion" class="btn btn-success">+ Add Companion</button>
-                                    </div> -->
                             <br><br>
-
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -212,8 +200,6 @@
         </div>
     </section>
     <!--================About Area End =================-->
-
-
     <!-- Success Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
         aria-hidden="true">
@@ -347,9 +333,8 @@
                         handlePassportFunc()
                     }
                 } catch (error) {
-                    console.log(error)
-                    alert('There is something Wrong');
-
+                    $('#successModalMessage').text("There is Something Wrong! Try Again Later");
+                    $('#successModal').modal('show');
                 }
             });
         });
@@ -400,10 +385,5 @@
                 }
             });
         }
-
-
-
-
-
     </script>
 @endpush

@@ -9,11 +9,11 @@
 
                 <h6 class="text-white text-uppercase mt-4 mb-3">Follow Us</h6>
                 <div class="d-flex">
-                    <a class="btn btn-primary btn-square mr-2" href="{{ optional($company)->twiter }}"><i
+                    <a target="_blank" class="btn btn-primary btn-square mr-2" href="{{ optional($company)->twiter }}"><i
                             class="fab fa-twitter"></i></a>
-                    <a class="btn btn-primary btn-square mr-2" href="{{ optional($company)->facebook }}"><i
+                    <a target="_blank" class="btn btn-primary btn-square mr-2" href="{{ optional($company)->facebook }}"><i
                             class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-primary btn-square mr-2" href="{{ optional($company)->linkdin }}"><i
+                    <a target="_blank" class="btn btn-primary btn-square mr-2" href="{{ optional($company)->linkdin }}"><i
                             class="fab fa-linkedin-in"></i></a>
                     
                 </div>
