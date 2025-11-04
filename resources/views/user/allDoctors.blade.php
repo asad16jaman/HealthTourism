@@ -66,7 +66,7 @@
             <div class="row">
              
                 @forelse($datas as $data)
-                    <div class="col-2 col-md-4 col-lg-3 mb-4">
+                    <div class="col-12 col-md-4 col-lg-3 mb-4">
                         <a href="{{ route('doctor.detail',['uid' => $data->uid]) }}">
                             <div class="card card-team shadow doctor_card" style="border : 1px solid #0052d2;">
                                 <img class="doctor_img rounded-0" src="{{ $data->img ? asset('storage/'.$data->img) : asset('assets/user/img/banner/about1.png') }}" alt="">
