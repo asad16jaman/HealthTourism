@@ -42,6 +42,7 @@
                             <li class="nav-item"><a class="nav-link {{ $page=='about' ? 'actives' : '' }}" href="{{ route('about') }}">About</a></li>
                             <li class="nav-item"><a class="nav-link {{ $page=='service' ? 'actives' : '' }}" href="{{ route('service') }}">Services</a></li>
                             <li class="nav-item"><a class="nav-link {{ $page=='hospital' ? 'actives' : '' }}" href="{{ route('all_hospital') }}">Hospitals</a></li>
+                            <li class="nav-item"><a class="nav-link {{ $page=='doctor' ? 'actives' : '' }}" href="{{ route('doctors') }}">Doctors</a></li>
                             
                             <li class="nav-item"><a class="nav-link {{ $page=='contact' ? 'actives' : '' }}" href="{{ route('contact') }}">Contact</a></li>
                             <li class="nav-item"><a class="nav-link heilighter {{ $page=='apoint' ? 'actives' : '' }}" href="{{ route('apointment') }}">Take Appointment</a></li>

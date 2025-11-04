@@ -103,7 +103,7 @@
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">{{ $loop->iteration }}</td>
                                                 <td>
-                                                    {{ $data->service->name }}
+                                                    {{ $data->service_name }}
                                                 </td>
                                                 <td>{{ $data->name }}</td>
                                                 <td>{{ $data->phone}}</td>

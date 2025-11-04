@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Faq;
 use App\Models\About;
 use App\Models\Slider;
@@ -102,6 +103,13 @@ class HomeController extends Controller
         return view('user.hospital', compact('countries'));
     }
 
+    public function hospitalsDetail($uid){
+        $hospital = Hospital::where('uid','=',$uid)->first();
+
+        return view('user.hospitaldetail',compact('hospital'));
+
+    }
+
     public function pationReportPage()
     {
         return view('user.patintreport');
@@ -138,7 +146,7 @@ class HomeController extends Controller
         return view('user.apoinment', compact('allCountry', 'services'));
     }
 
-    public function storeApointment(Request $request)
+public function storeApointment222(Request $request)
     {
         // nullable|image|mimes:pdf,doc,docx
         $rules = [
@@ -147,10 +155,11 @@ class HomeController extends Controller
             'phone' => ['required', 'string', 'max:20'],
             'address' => ['required', 'string'],
             'country_id' => ['required', 'integer'],
-            'service_id' => ['required', 'integer'],
             'message' => ['nullable', 'string'],
             'files' => ['nullable', 'array','max:4'],
             'files.*' => ['file', 'mimes:jpeg,jpg,png,webp', 'max:2024'],
+            'service_id' => ['required','array'],
+            'service_id.*' => 'string'
         ];
 
         if ($request->country_id != 9) {
@@ -162,20 +171,85 @@ class HomeController extends Controller
             $rules['companions.*.passport'] = ['required', 'string', 'max:50'];
             $rules['companions.*.exp_date'] = ['required', 'date'];
         }
+
         $validator = Validator::make($request->all(), $rules);
+
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'data' => $validator->errors()
             ], 200);
         }
+
+        
+        $service = $request->input('service_id');
+        $datas = Service::select('name')->whereIn("id",$service)->get();
+        $str = '';
+        foreach ($datas as $data) {
+            $str .= $data->name . ', ';
+        }
+        $str = rtrim($str, ', ');
+
+        try {
+           
+        } catch (\Exception $e) {
+           
+        }
+    }
+
+    public function storeApointment(Request $request)
+    {
+        // nullable|image|mimes:pdf,doc,docx
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'string', 'max:20'],
+            'address' => ['required', 'string'],
+            'country_id' => ['required', 'integer'],
+            'message' => ['nullable', 'string'],
+            'service_id' => ['required','array'],
+            'service_id.*' => 'string',
+            'passport_img' => ['nullable','file', 'mimes:jpeg,jpg,png,webp', 'max:2024'],
+            'prescription' => ['nullable','file', 'mimes:jpeg,jpg,png,webp', 'max:2024'],
+            'report' => ['nullable','file', 'mimes:jpeg,jpg,png,webp', 'max:2024']
+        ];
+
+        if ($request->country_id != 9) {
+            $rules['passport'] = ['required', 'string', 'max:50'];
+            $rules['exp_date'] = ['required', 'date'];
+            $rules['companions'] = ['required', 'array', 'min:1'];
+            $rules['companions.*.name'] = ['required', 'string', 'max:255'];
+            $rules['companions.*.relation'] = ['required', 'string', 'max:100'];
+            $rules['companions.*.passport'] = ['required', 'string', 'max:50'];
+            $rules['companions.*.exp_date'] = ['required', 'date'];
+        }
+
+        $validator = Validator::make($request->all(), $rules);
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'data' => $validator->errors()
+            ], 200);
+        }
+
+        $service = $request->input('service_id');
+        $datas = Service::select('name')->whereIn("id",$service)->get();
+        $str = '';
+        foreach ($datas as $data) {
+            $str .= $data->name . ', ';
+        }
+        $str = rtrim($str, ', ');
+
         $bookdata = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
             'country_id' => $request->country_id,
-            'service_id' => $request->service_id,
+            'service_name' => $str,
             'passport' => $request->passport,
             'exp_date' => $request->exp_date,
             'message' => $request->message,
@@ -183,17 +257,34 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
             // Booking save
-            $booking = Booking::create($bookdata);
+
             // Bookfiles save
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
-                    $path = $file->store('bookfile', 'public'); // public disk
-                    Bookfile::create([
-                        'booking_id' => $booking->id,
-                        'document' => $path,
-                    ]);
-                }
+            // if ($request->hasFile('files')) {
+            //     foreach ($request->file('files') as $file) {
+            //         $path = $file->store('bookfile', 'public'); // public disk
+            //         Bookfile::create([
+            //             'booking_id' => $booking->id,
+            //             'document' => $path,
+            //         ]);
+            //     }
+            // }
+
+            if($request->hasFile('passport_img')){
+                $pass = $request->file('passport_img')->store('book_img');
+                $bookdata['passport_img'] = $pass;
             }
+            if($request->hasFile('prescription')){
+                $pass = $request->file('prescription')->store('book_img');
+                $bookdata['prescription'] = $pass;
+            }
+            if($request->hasFile('report')){
+                $pass = $request->file('report')->store('book_img');
+                $bookdata['report'] = $pass;
+            }
+
+            $booking = Booking::create($bookdata);
+
+
             // Companions save
             if ($request->country_id != 9) {
                 if ($request->companions) {
@@ -220,6 +311,29 @@ class HomeController extends Controller
                 'message' => "Something Went Wrong.."
             ]);
         }
+    }
+
+    public function getAllService(){
+
+        $services = Service::latest()->get(); 
+
+        return response()->json([
+            'status' => true,
+            'services' => $services
+        ]);
+    }
+
+
+    public function allDoctors() {
+        
+        $datas = Doctor::latest()->get();
+        return view('user.allDoctors',compact(['datas']));
+        
+    }
+
+    public function doctorDetail($uid){
+        $doctor = Doctor::where('uid','=',$uid)->first();
+        return view('user.doctordetail',compact('doctor'));
     }
 
 

@@ -1,7 +1,7 @@
 <!-- service-message -->
 @extends('admin.layout.app')
 
-@section('title', 'Patient Page')
+@section('title', 'Patient Report')
 
 @section('style')
     <style>

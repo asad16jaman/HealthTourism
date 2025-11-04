@@ -4,23 +4,31 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
-class Hospital extends Model
+class Doctor extends Model
 {
     //
-    protected $guarded = [];
 
-    public function country(){
-        return $this->belongsTo(Country::class);
-    }
+    protected $guarded = []; 
 
-   
     protected static function boot(){
         parent::boot();
+
         static::creating(function($model){
             $model->uid = (string) Str::uuid();
         });
+
+        static::deleting(function($model){
+            if($model->img && Storage::exists($model->img)){
+                 Storage::delete($model->img);
+            }
+        });
+
     }
-    
+
+   
+
+
     
 }

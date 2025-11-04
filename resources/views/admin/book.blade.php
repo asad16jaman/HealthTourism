@@ -199,7 +199,7 @@
                                                                 <div class="modal-body">
                                                                     <div>
                                                                         <p>Country: {{ $data->country->country }}</p>
-                                                                        <p>Service Name: {{ $data->service->name }}</p>
+                                                                        <p>Service Names: {{ $data->service_name }} </p>
                                                                         <p>Passport: {{ $data->passport ?? "Not Found" }}</p>
                                                                         <p>Expire Date: {{ $data->exp_date ?? "Not Found" }}</p>
                                                                         <p>Address: {{ $data->address }}</p>
@@ -212,19 +212,48 @@
                                                                         
                                                                            
                                                                             <div class="row">
-                                                                                @forelse ($data->files as $file)
-                                                                                <div class="col-3 position-relative" style="height:105px" >
-                                                                                    <a href="{{ route('admin.fileDownload',['id'=>$file->id]) }}" class="btn btn-primary btn-sm position-absolute">
+                                                                              
+                                                                                <div class="col-4 position-relative" style="height:105px" >
+                                                                                    @if($data->passport_img)
+                                                                                        <a href="{{ route('admin.fileDownload',['id' => $data->id,'name' => 'passport_image']) }}" class="btn btn-primary btn-sm position-absolute">
                                                                                         <i class="fas fa-download iconsize"></i>
-                                                                                    </a>
-                                                                                    <a href="{{ asset('storage').'/'.$file->document }}" data-lightbox="roadtrip{{ $data->id }}">
-                                                                                         <img style="width:100%;height:100%;object-fit:contain" src="{{ asset('storage').'/'.$file->document }}" alt="{{ $data->name }}">
-                                                                                    </a>
-                                                                                   
+                                                                                        </a>
+                                                                                        <a href="{{ asset('storage').'/'.$data->passport_img }}" data-lightbox="roadtrip{{ $data->id }}">
+                                                                                            <img style="width:100%;height:100%;object-fit:contain" src="{{ asset('storage').'/'.$data->passport_img }}" alt="{{ $data->name }}">
+                                                                                        </a>
+                                                                                    @else
+                                                                                        <p class="text-center">Passport Not Found</p>
+                                                                                    @endif
                                                                                 </div>
-                                                                                @empty
-                                                                                    <p class="text-center">No Document Found</p>
-                                                                                @endforelse
+                                                                                <div class="col-4 position-relative" style="height:105px">
+                                                                                    @if($data->prescription)
+                                                                                        <a href="{{ route('admin.fileDownload',['id' => $data->id,'name' => 'prescription']) }}" class="btn btn-primary btn-sm position-absolute">
+                                                                                        <i class="fas fa-download iconsize"></i>
+                                                                                        </a>
+                                                                                        <a href="{{ asset('storage').'/'.$data->prescription }}" data-lightbox="roadtrip{{ $data->id }}">
+                                                                                            <img style="width:100%;height:100%;object-fit:contain" src="{{ asset('storage').'/'.$data->prescription }}" alt="{{ $data->name }}">
+                                                                                        </a>
+                                                                                    @else
+                                                                                        <p class="text-center">Prescription Not Found</p>
+                                                                                    @endif
+
+                                                                                    
+                                                                                </div>
+
+                                                                                <div class="col-4 position-relative" style="height:105px">
+                                                                                    @if($data->report)
+                                                                                        <a href="{{ route('admin.fileDownload',['id' => $data->id,'name' => 'report']) }}" class="btn btn-primary btn-sm position-absolute">
+                                                                                        <i class="fas fa-download iconsize"></i>
+                                                                                        </a>
+                                                                                        <a href="{{ asset('storage').'/'.$data->report }}" data-lightbox="roadtrip{{ $data->id }}">
+                                                                                            <img style="width:100%;height:100%;object-fit:contain" src="{{ asset('storage').'/'.$data->report }}" alt="{{ $data->name }}">
+                                                                                        </a>
+                                                                                    @else
+                                                                                        <p class="text-center">Report Not Found</p>
+                                                                                    @endif
+                                                                                </div>
+                                                                                    
+                                                                               
                                                                             </div>
                                                                             
                                                                         

@@ -15,7 +15,6 @@
                             class="fab fa-facebook-f"></i></a>
                     <a target="_blank" class="btn btn-primary btn-square mr-2" href="{{ optional($company)->linkdin }}"><i
                             class="fab fa-linkedin-in"></i></a>
-                    
                 </div>
             </div>
             <div class="col-md-8 col-12">

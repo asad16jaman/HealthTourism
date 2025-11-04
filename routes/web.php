@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\ApoinmentController;
-use App\Http\Controllers\Admin\AuthMessageController;
-use App\Http\Controllers\Admin\CountryController;
-use App\Http\Controllers\Admin\MissionController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\WellcomeController;
-use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\Admin\DoctorController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\UsersController;
@@ -15,11 +12,16 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\WellcomeController;
+use App\Http\Controllers\Admin\ApoinmentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ManagemenController;
+use App\Http\Controllers\Admin\AuthMessageController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
-use Illuminate\Support\Facades\Http;
 
 
 Route::get('/',[HomeController::class,'index'])->name('home');
@@ -30,13 +32,16 @@ Route::get('/service',[HomeController::class,'service'])->name('service');
 Route::get('/services/{uid}/detail',[HomeController::class,'servicesDetail'])->name('service_detail');
 Route::post('/services/{uid}/detail',[HomeController::class,'servicesMessageStore'])->name('service_detail');
 Route::get('/hospitals',[HomeController::class,'hospitals'])->name('all_hospital');
+Route::get('/hospitals/{uid}/detail',[HomeController::class,'hospitalsDetail'])->name('hospital.detail');
 Route::get('/patent-report',[HomeController::class,'pationReportPage'])->name('pagentReport');
 Route::post('/patent-report',[HomeController::class,'savePataintReport'])->name('pagentReport');
 Route::get('/apointment',[HomeController::class,'apointment'])->name('apointment');
 Route::post('/apointment',[HomeController::class,'storeApointment'])->name('apointment');
+Route::get('/allservice',[HomeController::class,'getAllService'])->name('serviceName');
 
 
-// Route::get('/mission-vission',[HomeController::class,'misionVision'])->name('misionvision');
+Route::get('/doctors',[HomeController::class,'allDoctors'])->name('doctors');
+Route::get('/doctor/{uid}/detail',[HomeController::class,'doctorDetail'])->name('doctor.detail');
 // Route::get('/chairman-message',[HomeController::class,'chairmanMessage'])->name('chairmanMessage');
 
 Route::prefix('admin')->group(function(){
@@ -85,7 +90,7 @@ Route::group(['prefix'=> '/admin','middleware'=>'checkAdminAuth','as'=>'admin.']
 
     //Contact url hare+++++
     Route::get('/apoint',[ApoinmentController::class,'index'])->name('apoint');
-    Route::get('/apoint/download/{id}',[ApoinmentController::class,'downloadFile'])->name('fileDownload');
+    Route::get('/apoint/{id}/download/{name}',[ApoinmentController::class,'downloadFile'])->name('fileDownload');
     Route::post('/apoint/{id}',[ApoinmentController::class,'deleteApoint'])->name('apoint.delete');
     Route::post('/apoint/{id}/status',[ApoinmentController::class,'changeStatus'])->name('apoint.changeStatus');
 
@@ -132,10 +137,15 @@ Route::group(['prefix'=> '/admin','middleware'=>'checkAdminAuth','as'=>'admin.']
     Route::post('/report/{id}',[ContactController::class,'destroyreport'])->name('report.delete');
     Route::get('/report/{id}/reportDownload',[ContactController::class,'reportDownload'])->name('report.download');
 
-     //Client url hare
-    Route::get('/hospital',[ClientController::class,'index'])->name('client');
-    Route::post('/hospital',[ClientController::class,'store'])->name('client');
-    Route::post('/hospital/{id}',[ClientController::class,'destroy'])->name('client.delete');
+     //Client Urls are Used as Hospital url hare
+    Route::get('/hospital/{id?}',[ClientController::class,'index'])->name('client');
+    Route::post('/hospital/{id?}',[ClientController::class,'store'])->name('client');
+    Route::post('/hospital/{id}/delete',[ClientController::class,'destroy'])->name('client.delete');
+
+    //Doctor Url
+    Route::get('/doctor/{id?}',[DoctorController::class,'index'])->name('doctor');
+    Route::post('/doctor/{id?}',[DoctorController::class,'store'])->name('doctor');
+    Route::post('/doctor/{id}/delete',[DoctorController::class,'destroy'])->name('doctor.delete');
 
     //Wellcome Node url hare
     Route::get('/create-wellcome-node',[WellcomeController::class,'index'])->name('wellcome');
@@ -149,7 +159,6 @@ Route::group(['prefix'=> '/admin','middleware'=>'checkAdminAuth','as'=>'admin.']
     //admin logout
     Route::get('/logout',[DashboardController::class,'logout'])->name('logout');
 });
-
 
 
  Route::get('link', function(){

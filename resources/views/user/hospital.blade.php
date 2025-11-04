@@ -99,11 +99,13 @@
                     <div class="row mb-4">
                             @foreach ($country->hospitals as $hospital)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-                                <div class="card card_shadow">
-                                    <div class="card-body">
-                                        <img src="{{ asset('storage/'.$hospital->img) }}" class="img-fluid" alt="">
+                                <a href="{{ route('hospital.detail',['uid' => $hospital->uid ]) }}">
+                                    <div class="card card_shadow">
+                                        <div class="card-body">
+                                            <img src="{{ asset('storage/'.$hospital->img) }}" class="img-fluid" alt="">
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @endforeach
                         

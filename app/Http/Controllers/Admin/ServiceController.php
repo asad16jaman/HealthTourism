@@ -88,9 +88,9 @@ class ServiceController extends Controller
     public function getServiceMessage(int $id=null){
 
         if($id == null){
-            $datas = Servicemessage::with('service')->latest()->get();
+            $datas = Servicemessage::latest()->get();
         }else{
-            $datas = Servicemessage::with('service')->where('service_id',$id)->latest()->get();
+            $datas = Servicemessage::where('service_id',$id)->latest()->get();
         }
         return view('admin.service-message',compact('datas'));
 

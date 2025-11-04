@@ -19,10 +19,13 @@ return new class extends Migration
             $table->enum('status',['panding','progress','complete'])->default('panding');
             $table->string('address')->nullable();
             $table->foreignId('country_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId('service_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->text('service_name')->nullable();
             $table->string('passport')->nullable();
             $table->date('exp_date')->nullable();
             $table->text('message')->nullable();
+            $table->string('prescription')->nullable();
+            $table->string('report')->nullable();
+            $table->string('passport_img')->nullable();
             $table->timestamps();
         });
     }

@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hospitals', function (Blueprint $table) {
+        Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid')->nullable();
-            $table->foreignId('country_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('img')->nullable();
-            $table->string('picture')->nullable();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->string('name')->nullable();
+            $table->string('designation')->nullable();
+            $table->text('detail')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('email')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hospitals');
+        Schema::dropIfExists('doctors');
     }
 };

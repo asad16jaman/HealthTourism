@@ -187,25 +187,22 @@
     </section>
     <!--================ Team section end =================-->
 
-    <!-- ================ Hotline Area Starts ================= -->
+    <!-- ================ Hospital Network Starts ================= -->
     <section class="hotline-area text-center area-padding">
         <div class="container">
             <h2>Our Hospital Network</h2>
             <!-- Brand Carousel Section -->
             <div class="brand-carouselddd owl-carousel owl-theme">
                 @foreach ($hospitals as $hospital)
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="{{ asset('storage/'.$hospital->img) }}" class="img-fluid" alt="">
+                    <a href="{{ route('hospital.detail',['uid' => $hospital->uid ]) }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('storage/'.$hospital->img) }}" class="img-fluid" alt="">
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach              
-                
-
-                
-
             </div>
-
         </div>
     </section>
     <!-- ================ Hotline Area End ================= -->

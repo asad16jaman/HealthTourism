@@ -177,7 +177,13 @@
                 </div>
               </li>
                
-               
+               <li class="nav-item {{ Route::is('admin.doctor') ? 'active' : '' }}">
+                <a href="{{ route('admin.doctor') }}">
+                  <i class="fas fa-info-circle"></i>
+                  <p>Doctors</p>
+                </a>
+              </li>
+
               <li class="nav-item {{ ($page=='about') ? 'active' : '' }}">
                 <a href="{{ route('admin.about') }}">
                   <i class="fas fa-info-circle"></i>

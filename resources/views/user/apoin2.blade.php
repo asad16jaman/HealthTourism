@@ -43,11 +43,6 @@
     .select2-container--default .select2-selection--multiple{
          border: solid #0052d2 1px !important;
     }
-    .prevImg{
-            width: 50%;
-    height: 82px;
-    object-fit: contain;
-    }
     </style>
 @endpush
 
@@ -124,7 +119,6 @@
                                             <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? "selected" : "" }}>{{ $service->name }}</option>
                                         @endforeach
                                     </select>
-                                    <p id="select_error" style="color:red;font-size:12px"></p>
                                 </div>
                             </div>
 
@@ -145,45 +139,21 @@
                                 </div>
                             </div>
 
-                            <div class=" col-12 col-lg-3">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Address*</label>
                                     <input type="text" value="{{ old('exp_date') }}" placeholder="Your Address"
                                         name="address" class="form-control @error('address') is-invalid @enderror">
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-3 col-12">
-                                <div class="form-group">
-                                    <label>Passport : </label> <br>
-                                    <input id="passport_input" name="passport_img" style="height:auto;padding:0px;" class="form-control" type="file" accept="image/*">
-                                    <p>image (jpeg,jpg,png,webp image only)</p>
-                                    @error('passport_img')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                    <img id="passportPreview" src="{{ asset('assets/user/img/apoin/passport.jpg') }}" class="img-fluid border prevImg" alt="">
-                                </div>
-                            </div>
 
-                            <div class="col-md-4 col-lg-3 col-12">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label>Prescription : </label> <br>
-                                    <input id="prescription_input" name="prescription" style="height:auto;padding:0px;" class="form-control" type="file" accept="image/*">
-                                    <p>image (jpeg,jpg,png,webp image only)</p>
-                                    @error('prescription')
+                                    <label> Upload your reports,max:4 image (jpeg,jpg,png,webp image only): </label> <br>
+                                    <input name="files[]" type="file" accept="image/*" multiple>
+                                    @error('files')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
-                                    <img id="prescriptionPreview" src="{{ asset('assets/user/img/apoin/prescription.jpg') }}" class="img-fluid border prevImg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-lg-3 col-12">
-                                <div class="form-group">
-                                    <label>Report : </label> <br>
-                                    <input name="report" id="report_input" style="height:auto;padding:0px;" class="form-control" type="file" accept="image/*">
-                                    <p>image (jpeg,jpg,png,webp image only)</p>
-                                    @error('report')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                    <img id="reportPreview" src="{{ asset('assets/user/img/apoin/medical_report.webp') }}" class="img-fluid border prevImg" alt="">
                                 </div>
                             </div>
 
@@ -198,6 +168,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                         </div>
                         <hr>
                         <div class="d-none pesportSection">
@@ -273,55 +244,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-
-        //previewing images
-        let report = document.getElementById('report_input');
-        let prevImage = document.getElementById('reportPreview');
-
-        report.addEventListener('change',function(e){
-            let file = this.files[0];
-            if(file){
-                let reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(e){
-                    prevImage.src = e.target.result
-                }
-            }
-        })
-
-        let passport = document.getElementById('passport_input');
-        let passportprevImage = document.getElementById('passportPreview');
-
-        passport.addEventListener('change',function(e){
-            let file = this.files[0];
-            if(file){
-                let reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(e){
-                    passportprevImage.src = e.target.result
-                }
-            }
-        })
-
-        let prescription = document.getElementById('prescription_input');
-        let prescriptionprevImage = document.getElementById('prescriptionPreview');
-
-        prescription.addEventListener('change',function(e){
-            let file = this.files[0];
-            if(file){
-                let reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(e){
-                    prescriptionprevImage.src = e.target.result
-                }
-            }
-        })
-
-
-
-
-
-
         //  Country change event → passport section show/hide
         const countrySelect = document.getElementById('countrySelect');
         const passportSections = document.querySelectorAll('.pesportSection');
@@ -411,6 +333,7 @@
             // Form Submit via Axios
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
+                console.log('hellow world')
                 // Reset previous errors
                 document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
                 document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
@@ -421,11 +344,8 @@
                     });
                     console.log(response)
                     if (response.data.status === false) {
-                        let invalid_errors = response.data.data;
-                        showValidationErrors(invalid_errors);
-                        if(invalid_errors.service_id){
-                            document.getElementById('select_error').innerHTML = invalid_errors.service_id[0]
-                        }
+                        console.log(response.data.data)
+                        showValidationErrors(response.data.data);
                     } else {
                         $('#successModalMessage').text(response.data.message);
                         $('#successModal').modal('show');
