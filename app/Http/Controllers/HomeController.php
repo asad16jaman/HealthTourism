@@ -258,17 +258,6 @@ public function storeApointment222(Request $request)
             DB::beginTransaction();
             // Booking save
 
-            // Bookfiles save
-            // if ($request->hasFile('files')) {
-            //     foreach ($request->file('files') as $file) {
-            //         $path = $file->store('bookfile', 'public'); // public disk
-            //         Bookfile::create([
-            //             'booking_id' => $booking->id,
-            //             'document' => $path,
-            //         ]);
-            //     }
-            // }
-
             if($request->hasFile('passport_img')){
                 $pass = $request->file('passport_img')->store('book_img');
                 $bookdata['passport_img'] = $pass;

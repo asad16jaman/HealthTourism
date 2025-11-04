@@ -427,10 +427,15 @@
                             document.getElementById('select_error').innerHTML = invalid_errors.service_id[0]
                         }
                     } else {
+                        document.getElementById('passportPreview').src = "{{ asset('assets/user/img/apoin/passport.jpg') }}";
+                        document.getElementById('prescriptionPreview').src = "{{ asset('assets/user/img/apoin/prescription.jpg') }}";
+                        document.getElementById('reportPreview').src = "{{ asset('assets/user/img/apoin/medical_report.webp') }}";
+                        $('.select2').val(null).trigger('change');
                         $('#successModalMessage').text(response.data.message);
                         $('#successModal').modal('show');
                         form.reset();
-                        handlePassportFunc()
+                        handlePassportFunc();
+                       
                     }
                 } catch (error) {
                     $('#successModalMessage').text("There is Something Wrong! Try Again Later");

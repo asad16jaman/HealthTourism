@@ -29,7 +29,9 @@
             transform: scale(1.1); /* zoom-in effect */
         }
         .doctor_card_btn:hover{
-             background: linear-gradient(45deg, black, #2777a7);
+             background: linear-gradient(45deg, #d81176, #0052d2) !important;
+            color: #fff;
+            transition:0.5;
         }
 
     </style>

@@ -66,6 +66,9 @@
             font-size: 12px;
             cursor: pointer;
         }
+        .doctor_card_btn:hover{
+            color: red;
+        }
     </style>
 @endsection
 
