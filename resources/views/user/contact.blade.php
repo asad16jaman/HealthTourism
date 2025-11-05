@@ -6,6 +6,14 @@
     .map_url iframe {
       width: 100% !important;
     }
+     @media screen and (max-width:1024px){
+        .header_area + section, .header_area + row, .header_area + div {
+            margin-top: 60px;
+        }
+        .f-md-18{
+            font-size: 18px;
+        }
+        }
   </style>
 @endpush
 
@@ -16,7 +24,7 @@
   <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
       <div class="container">
-        <div class="banner_content d-md-flex justify-content-between align-items-center">
+        <div class="banner_content d-md-flex justify-content-between align-items-center mt-3 mt-md-5 mt-lg-0">
           <div class="mb-3 mb-md-0">
             <h2>Contact</h2>
           </div>

@@ -3,7 +3,19 @@
 
 @push('style')
     <style>
-        
+        @media screen and (max-width:1024px){
+            .about-area {
+                     padding-top: 0px; 
+                }
+        }
+        @media screen and (max-width:500px){
+                .header_area + section, .header_area + row, .header_area + div {
+                margin-top: 61px;
+            }
+            .f-18{
+                font-size: 18px;
+            }
+        }
     </style>
 @endpush
 
@@ -42,7 +54,7 @@
                                 <img src="{{ asset('storage/'.$service->img) }}" alt="{{ $service->name }}"
                                 class="img-fluid rounded custom_image_style">
                             </span>
-                            <h3 class="card-service__title">
+                            <h3 class="card-service__title f-18">
                                 @php
                                     $name = substr($service->name,0,26);
                                     if(strlen($service->name) > 26){

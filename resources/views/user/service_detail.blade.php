@@ -16,14 +16,22 @@
             height: auto;
             object-fit: contain;
         }
-
         @media screen and (min-width:768px) and (max-width:1024px) {
             .about-top-image {
                 width: 50%;
             }
-
         }
-
+         @media screen and (max-width:1024px){
+           .header_area + section, .header_area + row, .header_area + div {
+                margin-top: 60px;
+            }
+            .f-md-18{
+                font-size: 18px!important;
+            }
+                .about-area {
+                padding-top: 0px;
+            }
+        }
         @media screen and (max-width:767px) {
             .about-top-image {
                 width: 100%;
@@ -60,7 +68,7 @@
             <div class="row row-cols-1 row-cols-lg-2 g-lg-5">
                 <div class="col-12 py-3" style="text-align: justify;">
                     {{-- <h5 class="samll-sub mb-1 mt-0"> Our Story </h5> --}}
-                    <h2 class="comon-heading m-0 text-center mb-3">{{ optional($s_detail)->name }} </h2>
+                    <h2 class="comon-heading m-0 text-center mb-3 f-md-18">{{ optional($s_detail)->name }} </h2>
                     <div class="about-top-image">
                         <img src="{{ asset('storage/' . $s_detail->img) }}" alt="pic">
                     </div>
@@ -82,7 +90,7 @@
             <div class="appointment-inner">
                 <div class="row">
                     <div class="col-sm-12 col-lg-5 offset-lg-1">
-                        <h3>Some Common Questions?</h3>
+                        <h3 class="f-md-18">Some Common Questions?</h3>
                         <div class="accordion" id="accordionExample">
                             @foreach ($faqs as $faq)
                                 @if($loop->first)
@@ -135,7 +143,7 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="appointment-form p-3" style="border: 1px dotted blue;">
-                            <h3>Have Any Questions?</h3>
+                            <h3 class="f-md-18">Have Any Questions?</h3>
                             <form action="#" method="post">
                                 @csrf
                                 <input type="hidden" name="service_id" value="{{ $s_detail->id }}">

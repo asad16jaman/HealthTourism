@@ -2,7 +2,13 @@
 @section('title', 'Report Page')
 
 @push('style')
-    
+    <style>
+        @media screen and (max-width:1024px){
+            .header_area + section, .header_area + row, .header_area + div {
+                margin-top: 60px;
+            }
+        }
+    </style>
 @endpush
 
 @section('content')

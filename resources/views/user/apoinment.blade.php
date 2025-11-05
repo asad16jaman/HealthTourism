@@ -40,13 +40,25 @@
             border: solid #0052d2 1px !important;
             outline: 0;
         }
-    .select2-container--default .select2-selection--multiple{
-         border: solid #0052d2 1px !important;
-    }
-    .prevImg{
+        .select2-container--default .select2-selection--multiple{
+            border: solid #0052d2 1px !important;
+        }
+        .prevImg{
             width: 50%;
-    height: 82px;
-    object-fit: contain;
+            height: 82px;
+            object-fit: contain;
+    }
+    @media screen and (max-width:1024px){
+        .header_area + section, .header_area + row, .header_area + div {
+            margin-top: 60px;
+        }
+        .f-md-18{
+            font-size: 18px;
+        }
+
+        .about-area {
+            padding-top: 20px; 
+         }
     }
     </style>
 @endpush
@@ -77,7 +89,7 @@
         <div class="container">
             <div class="card shadow">
                 <div class="card-header text-white" style="background-color:#2314b7a1 !important">
-                    <h3 class="text-center">Patients Apointment Form</h3>
+                    <h3 class="text-center f-md-18">Patients Apointment Form</h3>
                 </div>
                 <form action="" method="post" enctype="multipart/form-data" id="appointmentForm">
                     @csrf
